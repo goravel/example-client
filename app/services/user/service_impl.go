@@ -21,9 +21,9 @@ type ServiceImpl struct {
 
 func NewServiceImpl() *ServiceImpl {
 	once.Do(func() {
-		client, err := facades.Grpc.Client(context.Background(), "user")
+		client, err := facades.Grpc().Client(context.Background(), "user")
 		if err != nil {
-			facades.Log.Errorf("init UserService err: %+v", err)
+			facades.Log().Errorf("init UserService err: %+v", err)
 			return
 		}
 

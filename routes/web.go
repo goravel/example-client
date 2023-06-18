@@ -8,7 +8,7 @@ import (
 )
 
 func Web() {
-	facades.Route.Get("/", func(ctx http.Context) {
+	facades.Route().Get("/", func(ctx http.Context) {
 		ctx.Response().Json(200, http.Json{
 			"Hello": "Goravel",
 		})
@@ -16,5 +16,5 @@ func Web() {
 
 	// gRPC
 	userController := controllers.NewUserController()
-	facades.Route.Get("/user", userController.Index)
+	facades.Route().Get("/user", userController.Index)
 }

@@ -10,10 +10,10 @@ func main() {
 	// This bootstraps the framework and gets it ready for use.
 	bootstrap.Boot()
 
-	// Start HTTP server by facades.Route.
+	// Start HTTP server by facades.Route().
 	go func() {
-		if err := facades.Route.Run(); err != nil {
-			facades.Log.Errorf("Route run error: %v", err)
+		if err := facades.Route().Run(); err != nil {
+			facades.Log().Errorf("Route run error: %v", err)
 		}
 	}()
 
