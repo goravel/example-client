@@ -26,22 +26,20 @@ func NewUserController() *UserController {
 	}
 }
 
-func (r *UserController) Index(ctx http.Context) {
+func (r *UserController) Index(ctx http.Context) http.Response {
 	token := ctx.Request().Header("Authorization", "")
 	if token == "" {
-		ctx.Request().AbortWithStatus(http.StatusUnauthorized)
-		return
+		return ctx.Response().Status(http.StatusUnauthorized).String("")
 	}
 
 	user, err := r.userService.GetUser(ctx.Context(), token)
 	if err != nil {
-		ctx.Request().AbortWithStatusJson(http.StatusUnauthorized, http.Json{
+		return ctx.Response().Json(http.StatusUnauthorized, http.Json{
 			"message": err.Error(),
 		})
-		return
 	}
 
-	ctx.Response().Success().Json(http.Json{
+	return ctx.Response().Success().Json(http.Json{
 		"user": user,
 	})
 }
